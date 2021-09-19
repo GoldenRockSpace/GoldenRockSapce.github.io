@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="GoldenRock&#39;s blog">
+  <meta name="keyword" content="一个通信专业的学生的秃头历程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      MySQL常用整理 | GoldenRock的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>GoldenRock的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>MySQL常用整理</h2>
+  <p class="post-date">2020-02-21</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="库操作"><a href="#库操作" class="headerlink" title="库操作"></a>库操作</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE base_name；</span><br></pre></td></tr></table></figure>
+<p>创建数据库，检查是否存在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE IF NOT EXISTS table_name;</span><br></pre></td></tr></table></figure>
+<p>创建数据库，指定字符集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE base_name CHARACTER SET 字符集名称（UTF-8&#x2F;GBK&#x2F;UNIONCODE）</span><br></pre></td></tr></table></figure>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW DATABASES;</span><br></pre></td></tr></table></figure>
+<p>查询数据库的字符集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE DATABASE base_name;</span><br></pre></td></tr></table></figure>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><p>修改数据库字符集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER DATABASE base_name CHARACTER SET UTF-8&#x2F;GBK&#x2F;UNIONCODE;</span><br></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP DATABASE base_name;</span><br><span class="line">DROP DATABASE IF EXIST table_name;</span><br></pre></td></tr></table></figure>
+<h3 id="使用数据库"><a href="#使用数据库" class="headerlink" title="使用数据库"></a>使用数据库</h3><p>查询当前使用的数据库名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DATABASE();</span><br></pre></td></tr></table></figure>
+<p>使用数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USE base_name;</span><br></pre></td></tr></table></figure>
+<h2 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h2><h3 id="增"><a href="#增" class="headerlink" title="增"></a>增</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TALBE 表名(</span><br><span class="line">            列名 数据类型</span><br><span class="line">            列名 数据类型</span><br><span class="line">            列名 数据类型</span><br><span class="line">            );</span><br></pre></td></tr></table></figure>
+<p>复制表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 表名 LIKE target_name;</span><br></pre></td></tr></table></figure>
+<p>添加列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 add 列名 数据类型；</span><br></pre></td></tr></table></figure>
+
+<h3 id="删"><a href="#删" class="headerlink" title="删"></a>删</h3><p>删除数据表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE 表名 ;</span><br><span class="line">DROP TABLE IF EXIST 表名;</span><br></pre></td></tr></table></figure>
+<p>删除表中列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 DROP 列名；</span><br></pre></td></tr></table></figure>
+<h3 id="改"><a href="#改" class="headerlink" title="改"></a>改</h3><p>修改表名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 RENAME TO new_name;</span><br></pre></td></tr></table></figure>
+<p>修改表的字符集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 CHARACTER SET UTF-8&#x2F;GBK&#x2F;UNIONCODE;</span><br></pre></td></tr></table></figure>
+<p>修改列、数据类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 CHANGE 列名 新列名 数据类型；\\同时修改了表名和数据类型</span><br><span class="line">ALTER TABLE 表名 MODIFY 列名 新数据类型；\\只修改了数据类型</span><br></pre></td></tr></table></figure>
+
+<h3 id="查"><a href="#查" class="headerlink" title="查"></a>查</h3><p>查表名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TALBES;</span><br></pre></td></tr></table></figure>
+<p>查询表结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DESC 表名;</span><br></pre></td></tr></table></figure>
+<h2 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h2><h3 id="增-1"><a href="#增-1" class="headerlink" title="增"></a>增</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO 表名(列名1，列名2，列名3）</span><br><span class="line">            VALUES(值1，值2，值3)；</span><br></pre></td></tr></table></figure>
+<h3 id="改-1"><a href="#改-1" class="headerlink" title="改"></a>改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 表名 SET 列名 &#x3D; value，列名 &#x3D; value... [WHERE 条件]；</span><br></pre></td></tr></table></figure>
+<h3 id="删-1"><a href="#删-1" class="headerlink" title="删"></a>删</h3><h2 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h2><h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名 ORDER BY 排序字段1 排序方式(ASC&#x2F;DESC),排序字段2 排序方式;</span><br></pre></td></tr></table></figure>
+<p>如有多个条件，只有第一条件一致时，才会执行下一条件</p>
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><p>聚合函数会排除null值<br>count：计算个数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT（IFNULL(列名,0） FROM 表名; &#x2F;&#x2F;空值定义为0</span><br></pre></td></tr></table></figure>
+<p>max:计算最大值<br>min:最小值<br>sum:求和<br>avg:平均</p>
+<h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3><p>GROUP BY 分组字段<br>分组之后的字段：分组字段、聚合函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 分组字段与若干聚合函数 FROM 表名 [WHERE 条件] GROUP BY 分组字段 [HAVING  条件]；</span><br></pre></td></tr></table></figure>
+<p><strong>where 和 having 的区别：</strong><br>1.where是分组前的限定条件，条件符合的参与分组，where后跟聚合函数；<br>2.having是分组后的限定条件，条件不符合的不能被查询，having后可以跟聚合函数。</p>
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><p>LIMTI 开始的索引，每页的条数<br>公式：开始的索引 = （当前的页码 - 1）* 每页的条数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名 LIMIT 索引，条数；</span><br></pre></td></tr></table></figure>
+<p>注：limit是MySQL的方言</p>
+<h2 id="查询表中数据"><a href="#查询表中数据" class="headerlink" title="查询表中数据"></a>查询表中数据</h2><p>结果去重</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT</span><br></pre></td></tr></table></figure>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="1-主键-primary-key"><a href="#1-主键-primary-key" class="headerlink" title="1.主键 primary key"></a>1.主键 primary key</h4><p>非空且唯一<br>创建表时添加约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREAT TABLE person(</span><br><span class="line">id iNT PRIMARY KEY);</span><br></pre></td></tr></table></figure>
+<p>删除表的约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person DROP PRIMARY KEY;</span><br></pre></td></tr></table></figure>
+<p>创建表后添加约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person MODIFY name VARCHAR(20) PRIMARY KEY;</span><br></pre></td></tr></table></figure>
+<p>自动增长<br>列为数值类型，可使用AUTO_INCREMENT实现自动增长</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREAT TABLE person(</span><br><span class="line">id iNT PRIMARY KEY AUTO_INCREMENT)；</span><br></pre></td></tr></table></figure>
+<p>取消自动增长</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person MODIFY id INT;</span><br></pre></td></tr></table></figure>
+<p>创建表后添加约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person MODIFY name VARCHAR(20) PRIMARY KEY AUTO_INCREMENT;</span><br></pre></td></tr></table></figure>
+<h4 id="2-非空-not-null"><a href="#2-非空-not-null" class="headerlink" title="2.非空 not null"></a>2.非空 not null</h4><p>创建表时添加约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREAT TABLE person(</span><br><span class="line">name varchar(20) not null);</span><br></pre></td></tr></table></figure>
+<p>删除表的约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person MODIFY name VARCHAR(20);</span><br></pre></td></tr></table></figure>
+<p>创建表后添加约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person MODIFY name VARCHAR(20) NOT NULL;</span><br></pre></td></tr></table></figure>
+<h4 id="3-唯一-unique"><a href="#3-唯一-unique" class="headerlink" title="3.唯一 unique"></a>3.唯一 unique</h4><p>创建表时添加约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREAT TABLE person(</span><br><span class="line">phone varchar(20) UNIQUE);</span><br></pre></td></tr></table></figure>
+<p>删除表的唯一约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person DROP INDEX phone;</span><br></pre></td></tr></table></figure>
+<p>创建表后添加约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE person MODIFY phone VARCHAR(20) UNIQUE;</span><br></pre></td></tr></table></figure>
+<p>注：唯一约束可能有多个null</p>
+<h4 id="4-外键-foreign-key"><a href="#4-外键-foreign-key" class="headerlink" title="4.外键 foreign key"></a>4.外键 foreign key</h4><p>创建表时添加外键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">            ...</span><br><span class="line">            CONSTRAINT 外键名称 FOREIGN KEY(外键列名) REFERENCE (主表列名);</span><br></pre></td></tr></table></figure>
+<p>删除外键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 DROP FOREIGN KEY 外键名称；</span><br></pre></td></tr></table></figure>
+<p>建表后添加外键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY(外键列名) REFERENCE (主表列名);</span><br></pre></td></tr></table></figure>
+<p>级联操作<br>设置级联更新、级联删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY(外键列名) REFERENCE (主表列名) ON UPDATE CASCADE ON DELETE CASCADE;</span><br></pre></td></tr></table></figure>
+<p>注：数据表关联较多时根据实际需求谨慎使用</p>
+<h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><h3 id="多表关系"><a href="#多表关系" class="headerlink" title="多表关系"></a>多表关系</h3><ol>
+<li>一对一<br>任意一方添加唯一的外键指向另一表的主键</li>
+<li>一对多（多对一）<br>多的外键指向一的主键</li>
+<li>多对多<br>借助第三张中间表，中间表至少包含两个字段作为外键分别指向两张表的主键<h3 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h3></li>
+<li>第一范式<br> 每一列都是不可分割的基本数据项，同一列中不能有多个值</li>
+<li>第二范式<br> 属性完全依赖于主键，消除第一范式的部分依赖</li>
+<li>第三范式<br> 属性不依赖于其它非主属性，消除第二范式的传递依赖</li>
+</ol>
+<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>两表的交集内容</p>
+<ol>
+<li>隐式内连接<br>使用WHERE条件消除无用数据<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 若干列名 FROM 表名 [别名]，表名 [别名] WHERE 条件；</span><br></pre></td></tr></table></figure></li>
+<li>显式内连接<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 若干列名 FROM 表名 [别名] [INNER] JOIN 表名 [别名] ON 条件；</span><br></pre></td></tr></table></figure>
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3></li>
+<li>左外连接<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 若干列名 FROM 表名 [别名] LEFT [OUTER] JOIN 表名 [别名] ON 条件；</span><br></pre></td></tr></table></figure>
+查询左表的所有数据以及两表交集内容</li>
+<li>右外连接<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 若干列名 FROM 表名 [别名] LEFT [OUTER] JOIN 表名 [别名] ON 条件；</span><br></pre></td></tr></table></figure>
+查询右表的所有数据以及两表交集内容<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3>嵌套查询语句</li>
+<li>子查询结果是单行单列的，子查询可作为条件，使用运算符判断<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 若干列名 FROM 表名 WHERE 条件 &gt; &#x3D; &lt; (SELECT ...);</span><br></pre></td></tr></table></figure></li>
+<li>子查询结果是多行单列的，子查询结果可作为集合条件，使用IN判断<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 若干列名 FROM 表名 WHERE 条件 IN (SELECT ...);</span><br></pre></td></tr></table></figure></li>
+<li>子查询结果是多行多列的，子查询可作为虚拟表参与查询<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 若干列名 FROM 表名 (SELECT ...) WHERE 条件;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>作用：加快查询速度<br>对一张表中的某个列建立索引，有以下两种语句格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD INDEX 索引名 (列名);</span><br><span class="line"></span><br><span class="line">CREATE INDEX 索引名 ON 表名 (列名);</span><br></pre></td></tr></table></figure>
+<p>查看索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM 表名字</span><br></pre></td></tr></table></figure>
+
+<p>在使用 SELECT 语句查询的时候，语句中 WHERE 里面的条件，会自动判断有没有可用的索引。</p>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>创建视图的语句格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW 视图名(列a,列b,列c) AS SELECT 列1,列2,列3 FROM 表名字;</span><br></pre></td></tr></table></figure>
+<h2 id="外部文件操作"><a href="#外部文件操作" class="headerlink" title="外部文件操作"></a>外部文件操作</h2><h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><p>库文件导入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source *.sql;</span><br><span class="line">或</span><br><span class="line">mysql -u root 数据库名 &lt; 文件名.sql #该命令在mysql外的终端执行</span><br></pre></td></tr></table></figure>
+<p>数据文件导入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOAD DATA INFILE &#39;文件路径和文件名&#39; INTO TABLE 表名;</span><br></pre></td></tr></table></figure>
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列1，列2 INTO OUTFILE &#39;文件路径和文件名&#39; FROM 表名;</span><br></pre></td></tr></table></figure>
+<h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>mysqldump 是一个备份工具，因此该命令是在终端中执行的，而不是在 mysql 交互环境下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root 数据库名&gt;备份文件名;   #备份整个数据库</span><br><span class="line"></span><br><span class="line">mysqldump -u root 数据库名 表名字&gt;备份文件名;  #备份整个表</span><br></pre></td></tr></table></figure>
+
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">START TRANSACTION;&#x2F;&#x2F;开启事务</span><br><span class="line">ROLLBACK;&#x2F;&#x2F;回滚事务</span><br><span class="line">COMMIT;&#x2F;&#x2F;提交事务</span><br></pre></td></tr></table></figure>
+<p>查看事务提交方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@autocommit; --1代表开启自动提交 --0代表关闭自动提交</span><br></pre></td></tr></table></figure>
+<p>MySQL默认开启自动提交，ORACLE默认关闭自动提交。<br>设置自动提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET @@autocommit &#x3D; 1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="事物的四大特征"><a href="#事物的四大特征" class="headerlink" title="事物的四大特征"></a>事物的四大特征</h3><ol>
+<li>原子性：不可分割的最小操作单位，要么同时成功，要么同时失败；</li>
+<li>持久性：当事务提交或回滚会，库会持久的保存状态；</li>
+<li>隔离性: 多个事务之间相互独立；</li>
+<li>一致性：事务操作前后，数据总量不变。</li>
+</ol>
+<h3 id="事物的隔离级别"><a href="#事物的隔离级别" class="headerlink" title="事物的隔离级别"></a>事物的隔离级别</h3><p>多个事务之间之间是相互独立的，但多个事务操作同一批数据会引发一些问题：</p>
+<ol>
+<li>脏读：一个事务读取到了另一个事务中没有提交的数据；</li>
+<li>不可重复读：在同一事物中，两次读取到的数据不一样；</li>
+<li>幻读：一个事务操作(DML)数据表中所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。</li>
+</ol>
+<h4 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h4><ol>
+<li>read uncommitted:读未提交<br> 问题：脏读、不可重复读、幻读</li>
+<li>read committed:读已提交<br> 问题：不可重复读、幻读</li>
+<li>repeatable read：可重复读<br> 问题：幻读</li>
+<li>serializable:串行化<br> 可解决所有问题<br>隔离级别越高，效率越差。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查询隔离级别</span><br><span class="line">SELECT @@tx_isolation;</span><br><span class="line">设置隔离级别</span><br><span class="line">SET GLOBAL TRANSACTION ISOLATION LEVEL 级别字符串;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#MySQL" >
+    <span class="tag-code">MySQL</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+    
+      <a class="nav-right" href="/2020/02/23/CC2530%E5%B8%B8%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8%E9%85%8D%E7%BD%AE%E6%95%B4%E7%90%86/">
+        
+          CC2530常用寄存器配置整理
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    <!--  -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    <!-- 
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+     -->
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#库操作"><span class="toc-nav-text">库操作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#创建"><span class="toc-nav-text">创建</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#查询"><span class="toc-nav-text">查询</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#修改"><span class="toc-nav-text">修改</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#删除"><span class="toc-nav-text">删除</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#使用数据库"><span class="toc-nav-text">使用数据库</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#表操作"><span class="toc-nav-text">表操作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#增"><span class="toc-nav-text">增</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#删"><span class="toc-nav-text">删</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#改"><span class="toc-nav-text">改</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#查"><span class="toc-nav-text">查</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据操作"><span class="toc-nav-text">数据操作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#增-1"><span class="toc-nav-text">增</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#改-1"><span class="toc-nav-text">改</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#删-1"><span class="toc-nav-text">删</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#单表查询"><span class="toc-nav-text">单表查询</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#排序"><span class="toc-nav-text">排序</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#聚合函数"><span class="toc-nav-text">聚合函数</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分组查询"><span class="toc-nav-text">分组查询</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分页查询"><span class="toc-nav-text">分页查询</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#查询表中数据"><span class="toc-nav-text">查询表中数据</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#约束"><span class="toc-nav-text">约束</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-主键-primary-key"><span class="toc-nav-text">1.主键 primary key</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-非空-not-null"><span class="toc-nav-text">2.非空 not null</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3-唯一-unique"><span class="toc-nav-text">3.唯一 unique</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#4-外键-foreign-key"><span class="toc-nav-text">4.外键 foreign key</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据库设计"><span class="toc-nav-text">数据库设计</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#多表关系"><span class="toc-nav-text">多表关系</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#范式"><span class="toc-nav-text">范式</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#多表查询"><span class="toc-nav-text">多表查询</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#内连接"><span class="toc-nav-text">内连接</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#外连接"><span class="toc-nav-text">外连接</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#子查询"><span class="toc-nav-text">子查询</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#索引"><span class="toc-nav-text">索引</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#视图"><span class="toc-nav-text">视图</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#外部文件操作"><span class="toc-nav-text">外部文件操作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#导入"><span class="toc-nav-text">导入</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#导出"><span class="toc-nav-text">导出</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#备份"><span class="toc-nav-text">备份</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#事务"><span class="toc-nav-text">事务</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#事物的四大特征"><span class="toc-nav-text">事物的四大特征</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#事物的隔离级别"><span class="toc-nav-text">事物的隔离级别</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#隔离级别"><span class="toc-nav-text">隔离级别</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://www.goldenrock.top/2020/02/21/MySQL常用整理/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+ 
+    <p class="copyright>
+    &copy;2020 <a href="https://github.com/GoldenRockSpace" target="_blank" rel="noopener">Build by GoldenRock</a>
+    </p>
+  <span class="copyright style="width:350px;margin:0 auto; padding:0px 0; overflow: hidden;">
+    <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener" style="display:inline-block;text-decoration: none; height:20px;line-height:20px; ">冀ICP备20012545号</a >
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=13072302000025" target="_blank" rel="noopener" style="display:inline-block; text-decoration: none; height:20px; line-height:20px; ">
+    <img src="http://cdn.zmoyi.com/static/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" style="float:left;" alt="">
+    冀公网安备 13072302000025号</a>
+  </span>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

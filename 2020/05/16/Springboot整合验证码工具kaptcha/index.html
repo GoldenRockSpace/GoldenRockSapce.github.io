@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="GoldenRock&#39;s blog">
+  <meta name="keyword" content="一个通信专业的学生的秃头历程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Springboot整合验证码工具kaptcha | GoldenRock的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>GoldenRock的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Springboot整合验证码工具kaptcha</h2>
+  <p class="post-date">2020-05-16</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>在许多网页中我们都可以看到验证码的存在，验证码就是用来进行人机识别的，防止脚本或爬虫无限制地重复请求网页浪费后台资源，本文就是介绍如何在Springboot中配置验证码组件。<br>Kaptcha的wiki地址： <a href="https://code.google.com/archive/p/kaptcha/" target="_blank" rel="noopener">https://code.google.com/archive/p/kaptcha/</a></p>
+<h2 id="1-添加pom依赖"><a href="#1-添加pom依赖" class="headerlink" title="1. 添加pom依赖"></a>1. 添加pom依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 验证码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.penggle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>kaptcha<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-配置参数信息"><a href="#2-配置参数信息" class="headerlink" title="2. 配置参数信息"></a>2. 配置参数信息</h2><h3 id="1-使用application-properties-配置"><a href="#1-使用application-properties-配置" class="headerlink" title="1. 使用application.properties 配置"></a>1. 使用application.properties 配置</h3><p>如果主配置文件使用application.properties，将下面这段代码加入进去即可，不用单独建立文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">kaptcha.border&#x3D;no</span><br><span class="line">kaptcha.border.color&#x3D;105,179,90</span><br><span class="line">kaptcha.image.width&#x3D;100</span><br><span class="line">kaptcha.image.height&#x3D;45</span><br><span class="line">kaptcha.session.key&#x3D;code</span><br><span class="line">kaptcha.textproducer.font.color&#x3D;blue</span><br><span class="line">kaptcha.textproducer.font.size&#x3D;35</span><br><span class="line">kaptcha.textproducer.char.length&#x3D;4</span><br><span class="line">kaptcha.textproducer.font.names&#x3D;宋体,楷体,微软雅黑</span><br></pre></td></tr></table></figure>
+
+<p>接着创建配置类文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CaptchaConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.border&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String border;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.border.color&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String borderColor;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.textproducer.font.color&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String fontColor;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.image.width&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String imageWidth;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.image.height&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String imageHeight;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.session.key&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String sessionKey;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.textproducer.char.length&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String charLength;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.textproducer.font.names&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String fontNames;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.textproducer.font.size&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String fontSize;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"captchaProducer"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultKaptcha <span class="title">getKaptchaBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DefaultKaptcha defaultKaptcha = <span class="keyword">new</span> DefaultKaptcha();</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.border"</span>, border);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.border.color"</span>, borderColor);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.color"</span>, fontColor);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.image.width"</span>, imageWidth);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.image.height"</span>, imageHeight);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.session.key"</span>, sessionKey);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.char.length"</span>, charLength);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.names"</span>, fontNames);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.size"</span>,fontSize);</span><br><span class="line">        Config config = <span class="keyword">new</span> Config(properties);</span><br><span class="line">        defaultKaptcha.setConfig(config);</span><br><span class="line">        <span class="keyword">return</span> defaultKaptcha;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-使用application-yml-配置"><a href="#2-使用application-yml-配置" class="headerlink" title="2. 使用application.yml 配置"></a>2. 使用application.yml 配置</h3><p>如果主配置文件使用application.yml文件配置，需要新建一个kaptcha.properties文件，配合注解PropertySourc使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">kaptcha.border&#x3D;no</span><br><span class="line">kaptcha.border.color&#x3D;105,179,90</span><br><span class="line">kaptcha.image.width&#x3D;100</span><br><span class="line">kaptcha.image.height&#x3D;45</span><br><span class="line">kaptcha.session.key&#x3D;code</span><br><span class="line">kaptcha.textproducer.font.color&#x3D;blue</span><br><span class="line">kaptcha.textproducer.font.size&#x3D;35</span><br><span class="line">kaptcha.textproducer.char.length&#x3D;4</span><br><span class="line">kaptcha.textproducer.font.names&#x3D;宋体,楷体,微软雅黑</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@PropertySource</span>(value = &#123;<span class="string">"classpath:kaptcha.properties"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CaptchaConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.border&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String border;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.border.color&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String borderColor;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.textproducer.font.color&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String fontColor;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.image.width&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String imageWidth;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.image.height&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String imageHeight;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.session.key&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String sessionKey;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.textproducer.char.length&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String charLength;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.textproducer.font.names&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String fontNames;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;kaptcha.textproducer.font.size&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String fontSize;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(name = <span class="string">"captchaProducer"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultKaptcha <span class="title">getKaptchaBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DefaultKaptcha defaultKaptcha = <span class="keyword">new</span> DefaultKaptcha();</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.border"</span>, border);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.border.color"</span>, borderColor);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.color"</span>, fontColor);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.image.width"</span>, imageWidth);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.image.height"</span>, imageHeight);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.session.key"</span>, sessionKey);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.char.length"</span>, charLength);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.names"</span>, fontNames);</span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.size"</span>,fontSize);</span><br><span class="line">        Config config = <span class="keyword">new</span> Config(properties);</span><br><span class="line">        defaultKaptcha.setConfig(config);</span><br><span class="line">        <span class="keyword">return</span> defaultKaptcha;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-生成验证码"><a href="#3-生成验证码" class="headerlink" title="3. 生成验证码"></a>3. 生成验证码</h2><p><strong>生成验证码的Controller：</strong></p>
+<ol>
+<li><p>通过captchaProducer.createText()生成验证码文字。</p>
+</li>
+<li><p>将验证码文字保存到session中。</p>
+</li>
+<li><p>通过captchaProducer.createImage(capText)生成验证码图片，并通过ServletOutputStream返回给前端</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KaptchaController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Producer captchaProducer;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/kaptcha"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getImageCode</span><span class="params">(HttpSession session, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        response.setDateHeader(<span class="string">"Expires"</span>, <span class="number">0</span>);</span><br><span class="line">        response.setHeader(<span class="string">"Cache-Control"</span>, <span class="string">"no-store, no-cache, must-revalidate"</span>);</span><br><span class="line">        response.addHeader(<span class="string">"Cache-Control"</span>, <span class="string">"post-check=0, pre-check=0"</span>);</span><br><span class="line">        response.setHeader(<span class="string">"Pragma"</span>, <span class="string">"no-cache"</span>);</span><br><span class="line">        response.setContentType(<span class="string">"image/jpeg"</span>);</span><br><span class="line"></span><br><span class="line">        String capText = captchaProducer.createText();</span><br><span class="line">        <span class="comment">//将验证码存到session</span></span><br><span class="line">        session.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);</span><br><span class="line">        <span class="comment">//将图片返回给前端</span></span><br><span class="line">        <span class="keyword">try</span>(ServletOutputStream out = response.getOutputStream();) &#123;</span><br><span class="line">            BufferedImage bi = captchaProducer.createImage(capText);</span><br><span class="line">            ImageIO.write(bi, <span class="string">"jpg"</span>, out);</span><br><span class="line">            out.flush();</span><br><span class="line">        &#125;<span class="comment">//使用try-with-resources不用手动关闭流</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>前端加载验证码</strong></p>
+<p>验证码本质是一张图片，所以用<code>&lt;img &gt;</code>标签，然后通过<code>src = &quot;/kaptcha&quot;</code>指向生成验证码的那个controller的路由即可;通过<code>onclick = “changeVerifyCode()”</code>调用js代码实现点击切换功能;<code>&lt;input name = &quot;verifyCodeActual&quot;&gt;</code>中要注意name的值，在CodeUtil中通过request的getParameter()方法获取用户输入的验证码时传入的key值就应该和这里的name值一致。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item-inner"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"j_captcha"</span> <span class="attr">class</span>=<span class="string">"item-title label"</span>&gt;</span>验证码<span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">		<span class="attr">id</span>=<span class="string">"j_captcha"</span> <span class="attr">name</span>=<span class="string">"verifyCodeActual"</span> <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">		<span class="attr">class</span>=<span class="string">"form-control in"</span> <span class="attr">placeholder</span>=<span class="string">"验证码"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item-input"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"captcha_img"</span> <span class="attr">alt</span>=<span class="string">"点击更换"</span> <span class="attr">title</span>=<span class="string">"点击更换"</span></span></span><br><span class="line"><span class="tag">			<span class="attr">onclick</span>=<span class="string">"changeVerifyCode(this)"</span> <span class="attr">src</span>=<span class="string">"/kaptcha"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.goldenrock.top/img/kaptcha.png" alt=""></p>
+<h2 id="4-验证码校验工具类"><a href="#4-验证码校验工具类" class="headerlink" title="4. 验证码校验工具类"></a>4. 验证码校验工具类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* CodeUtil.java*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CodeUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将获取到的前端参数转为string类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getString</span><span class="params">(HttpServletRequest request, String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String result = request.getParameter(key);</span><br><span class="line">            <span class="keyword">if</span>(result != <span class="keyword">null</span>) &#123;</span><br><span class="line">                result = result.trim();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">""</span>.equals(result)) &#123;</span><br><span class="line">                result = <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 验证码校验</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkVerifyCode</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//获取生成的验证码</span></span><br><span class="line">        String verifyCodeExpected = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);</span><br><span class="line">        <span class="comment">//获取用户输入的验证码</span></span><br><span class="line">        String verifyCodeActual = CodeUtil.getString(request, <span class="string">"verifyCodeActual"</span>);</span><br><span class="line">        <span class="keyword">if</span>(verifyCodeActual == <span class="keyword">null</span> ||!verifyCodeActual.equals(verifyCodeExpected)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个类用来比对生成的验证码与用户输入的验证码。生成的验证码会自动加到<strong>session</strong>中，用户输入的通过<strong>getParameter</strong>获得。注意<strong>getParameter</strong>的<strong>key</strong>值要与页面中验证码的<strong>name</strong>值一致。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#基础配置" >
+    <span class="tag-code">基础配置</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2020/03/23/Spring%E5%BC%95%E5%85%A5Druid%E8%BF%9E%E6%8E%A5%E6%B1%A0/">
+        <span class="nav-arrow">← </span>
+        
+          Spring 引入Druid连接池
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    <!--  -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    <!-- 
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+     -->
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0-前言"><span class="toc-nav-text">0. 前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-添加pom依赖"><span class="toc-nav-text">1. 添加pom依赖</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-配置参数信息"><span class="toc-nav-text">2. 配置参数信息</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-使用application-properties-配置"><span class="toc-nav-text">1. 使用application.properties 配置</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-使用application-yml-配置"><span class="toc-nav-text">2. 使用application.yml 配置</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-生成验证码"><span class="toc-nav-text">3. 生成验证码</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-验证码校验工具类"><span class="toc-nav-text">4. 验证码校验工具类</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://www.goldenrock.top/2020/05/16/Springboot整合验证码工具kaptcha/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+ 
+    <p class="copyright>
+    &copy;2020 <a href="https://github.com/GoldenRockSpace" target="_blank" rel="noopener">Build by GoldenRock</a>
+    </p>
+  <span class="copyright style="width:350px;margin:0 auto; padding:0px 0; overflow: hidden;">
+    <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener" style="display:inline-block;text-decoration: none; height:20px;line-height:20px; ">冀ICP备20012545号</a >
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=13072302000025" target="_blank" rel="noopener" style="display:inline-block; text-decoration: none; height:20px; line-height:20px; ">
+    <img src="http://cdn.zmoyi.com/static/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" style="float:left;" alt="">
+    冀公网安备 13072302000025号</a>
+  </span>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

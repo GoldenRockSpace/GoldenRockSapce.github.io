@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="GoldenRock&#39;s blog">
+  <meta name="keyword" content="一个通信专业的学生的秃头历程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      CC2530常用寄存器配置整理 | GoldenRock的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>GoldenRock的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>CC2530常用寄存器配置整理</h2>
+  <p class="post-date">2020-02-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>CC2530是TI公司的Zigbee产品，官方提供的data sheet对寄存器的介绍少之又少，因此特整理出来，以图为之后使用提供便利。</p>
+<h2 id="1-IO外设"><a href="#1-IO外设" class="headerlink" title="1. IO外设"></a>1. IO外设</h2><p><strong>P0SEL（P1SEL相同）</strong>：各个I/O口的功能选择<br>Bit[7:0] 对应位IO的功能，0为普通I/O功能，1为外设功能<br><strong>P2SEL</strong>：<br>Bit[2:0] p2口对应位IO功能选择，0为普通I/O功能，1为外设功能<br>Bit[6:3] 外设优先级：当PERCFG分配两个外设到相同的引脚时，需要设置这两个外设的优先级，确定哪一个外设先被响应</p>
+<table>
+<thead>
+<tr>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0:USART0优先<br/>1:USART1优先</td>
+<td>0: USART1优先<br/>1:定时器3优先</td>
+<td>0:定时器1优先 <br/>1:定时器4优先</td>
+<td>0:USART0优先<br/>1:定时器1优先</td>
+</tr>
+</tbody></table>
+<p><strong>PERCFG</strong>：设置部分外设的I/O位置，0为默认位置1,1为默认位置2<br>Bit[6:4] 定时器1 定时器3 定时器4<br>Bit[1:0] USART1 USATR0<br><strong>P0DIR（P1DIR相同）</strong>：<br>Bit[7:0] 设置各个I/O的方向，0为输入，1为输出<br><strong>P2DIR</strong>:<br>Bit[4:0] 设置P2_0到P2_4的输入输出，0为输入，1为输出<br>Bit[7:6] 作为端口0外设优先级的控制</p>
+<table>
+<thead>
+<tr>
+<th>Bit[7:6]</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00</td>
+<td>第1优先级：USART 0<br/>第2优先级：USART 1<br/>第3优先级：定时器1</td>
+</tr>
+<tr>
+<td>01</td>
+<td>第1优先级：USART 1<br/> 第2优先级：USART 0<br/> 第3优先级：定时器1</td>
+</tr>
+<tr>
+<td>10</td>
+<td>第1优先级：定时器1通道0-1<br/> 第2优先级：USART 1<br/> 第3优先级：USART 0 <br/>第4优先级：定时器1通道2 –3</td>
+</tr>
+<tr>
+<td>11</td>
+<td>第1优先级：定时器1通道2-3 <br/>第2优先级：USART 0 <br/>第3优先级：USART 1 <br/>第4优先级：定时器1通道0 –1</td>
+</tr>
+</tbody></table>
+<p><strong>P0INP(P1INP一致)</strong> ：设置各个I/O口的输入模式，0为上拉/下拉，1为三态模式<br>Bit[7:0]  0为上拉/下拉，1为三态模式</p>
+<p><strong>P2INP</strong>：<br>Bit[7:5] 设置对P0、P1和P2的上拉或下拉的选择。0为上拉，1为下拉；<br>Bit[4:0] 控制P2_0~P2_4的输入模式，0为上拉/下拉，1为三态</p>
+<h2 id="2-中断与定时器"><a href="#2-中断与定时器" class="headerlink" title="2.中断与定时器"></a>2.中断与定时器</h2><p><strong>P0IFG（P1IFG相同）</strong>：终端状态标志寄存器， 当输入端口有中断请求时，相应的标志位将置1。</p>
+<p><strong>P0IEN(P1IEN相同)</strong>:各个控制口的中断使能，0为中断禁止，1为中断使能。</p>
+<p><strong>P2IFG</strong>：<br> Bit[5] 为USD D+中断状态标志，当D+线有一个中断请求未决时设置该标志，用于检测USB挂起状态下的USB恢复事件。当USB控制器没有挂起时不设置该标志。<br>Bit[4:0] 为P2_0~P2_4的中断标志位</p>
+<p><strong>P2IEN</strong>：<br>Bit[5] 控制USB D+的中断使能<br>Bit[4:0] 控制P2_0~P2_4的中断使能</p>
+<p><strong>PICTL</strong>：<br>Bit[7] 控制I/O引脚在输出模式下的驱动能力。选择输出驱动能力增强来补偿引脚VDD的低I/O电压，确保在较低的电压下的驱动能力和较高电压下相同。0为最小驱动能力增强。1为最大驱动能力增强。<br>Bit[3:0] 设置各个端口的中断触发方式，0为上升沿触发，1为下降沿触发。</p>
+<p><strong>IEN0</strong>：中断使能0，0为中断禁止，1为中断使能</p>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>总中断EA</td>
+<td>未用</td>
+<td>睡眠定时器中断</td>
+<td>AES加密/解密中断</td>
+<td>USART1 RX中断</td>
+<td>USART0 RX中断</td>
+<td>ADC中断</td>
+<td>RF TX/RF FIFO中断</td>
+</tr>
+</tbody></table>
+<p><strong>IEN1</strong>:中断使能1，0为中断禁止，1为中断使能</p>
+<table>
+<thead>
+<tr>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>端口0</td>
+<td>定时器4</td>
+<td>定时器3</td>
+<td>定时器2</td>
+<td>定时器1</td>
+<td>DMA</td>
+</tr>
+</tbody></table>
+<p><strong>IEN2</strong>：中断使能2，0为中断禁止，1为中断使能</p>
+<table>
+<thead>
+<tr>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>看门狗定时器</td>
+<td>端口1</td>
+<td>USART1 TX</td>
+<td>USART0 TX</td>
+<td>端口2</td>
+<td>RF一般中断</td>
+</tr>
+</tbody></table>
+<p><strong>IRCON</strong>：中断标志4，0为无中断请求。1为有中断请求。</p>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>睡眠定时器</td>
+<td>必须为0</td>
+<td>端口0</td>
+<td>定时器4</td>
+<td>定时器3</td>
+<td>定时器2</td>
+<td>定时器1</td>
+<td>DMA完成</td>
+</tr>
+</tbody></table>
+<p><strong>T1CTL</strong>：定时器1的控制<br>Bit[3:2] 定时器分频<br>00：不分频<br>01：8分频<br>10：32分频<br>11：128分频<br>Bit[1:0] 运行模式<br>00：暂停运行<br>01：自由运行，反复从0x0000到0xffff计数<br>10：模计数，从0x000到T1CC0反复计数<br>11：正计数/倒计数，从0x0000到T1CC0反复计数并且从T1CC0倒计数到0x0000</p>
+<p><strong>T1STAT</strong>:定时器1的状态寄存器<br>Bit[4:0]为通道4~通道0的中断标志；<br>Bit[5]为溢出标志位，当计数到最终计数值时自动置1。</p>
+<p><strong>T1CCTL0~T1CCTL4</strong>：定时器1通道0~通道4的工作方式设置<br>Bit[5:3]为比较模式的选择：<br>    000为发生比较式输出端置1,<br>    001为发生比较时输出端清0,<br>    010为比较时输出翻转，其他模式较少使用；<br>Bit[2]位为捕获或比较的选择，0为捕获模式，1为比较模式；<br>Bit[1:0]为捕捉模式选择：00为不捕捉，01为上升沿捕获，10为下降沿捕获，11为上升或下降沿都捕获。</p>
+<p><strong>T3CTL/T4CTL</strong>：定时器3/定时器4的方式控制寄存器<br>Bit[7:5]设置分频：000为无分频、001为2分频、010为4分频、011为8分频、100为16分频、101为32分频、110为64分频，111为128分频；<br>Bit[4]为启动标志位，启动时1，停止工作为0；<br>Bit[3]位为中断使能位，0为禁止，1为使能，默认为1；<br>Bit[2]为复位标志位，置1时定时器复位；<br>Bit[1:0]为计数器模式选择：该位与T1CTL的Bit[1:0]意义相同。</p>
+<p><strong>T3CCTL0/T3CCTL1/T4CCTL0/T4CCTL1</strong>：定时器3/定时器4的通道0/通道1的方式控制<br>Bit[6]为该通道的中断使能位，0为禁止，1为使能，默认为1；<br>Bit[5:0]与T1CCTL0相同</p>
+<p><strong>TIMIF</strong>：定时器1的溢出中断屏蔽与定时器3、4的中断标志。<br>Bit[6]为定时器1的溢出中断屏蔽，0为屏蔽，1为使能，默认为1;<br>Bit[5:0]为定时器3和4中各个通道的中断标志。</p>
+<h2 id="3-时钟"><a href="#3-时钟" class="headerlink" title="3.时钟"></a>3.时钟</h2><p><strong>CLKCONCMD</strong>：时钟频率控制寄存器</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7</td>
+<td>32 kHz 时钟振荡器选择<br/>0为32KRC震荡，1为32K晶振</td>
+<td>默认为1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>系统时钟选择<br/>0为32M晶振，1为16M RC震荡</td>
+<td>当Bit[7]为0时Bit[6]必须为1</td>
+</tr>
+<tr>
+<td>5：3</td>
+<td>当前定时器输出标记<br/>000为32MHZ<br/>001为16MHZ<br/>010为8MHZ<br/>011为4MHZ<br/>100为2MHZ<br/>101为 1MHZ<br/>110为500KHZ<br/>111为250KHZ</td>
+<td>默认为001<br/>注意：当Bit[6]为1时，定时器频率最高可采用频率为16MHZ。</td>
+</tr>
+<tr>
+<td>2：1</td>
+<td>时钟速度 <br/>000为32MHZ<br/>001为16MHZ<br/>010为8MHZ<br/>011为4MHZ<br/>100为2MHZ<br/>101为1MHZ<br/>110为500KHZ<br/>111为250KHZ</td>
+<td>默认为001<br/>注意：当Bit[6]为1时，定时器频率最高可采用频率为16MHZ。</td>
+</tr>
+</tbody></table>
+<p><strong>CLKCONSTA</strong>：时间频率状态寄存器</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7</td>
+<td>32 kHz 时钟振荡器选择<br/> 0为32KRC震荡，1为32K晶振</td>
+</tr>
+<tr>
+<td>6</td>
+<td>系统时钟选择<br/> 0为32M晶振，1为16M RC震荡</td>
+</tr>
+<tr>
+<td>5：3</td>
+<td>当前定时器输出标记<br/>000为32MHZ<br/>001为16MHZ<br/>010为8MHZ <br/>011为4MHZ <br/>100为2MHZ <br/>101为 1MHZ <br/>110为500KHZ <br/>111为250KHZ</td>
+</tr>
+<tr>
+<td>2：1</td>
+<td>时钟速度<br/>000为32MHZ<br/>001为16MHZ<br/>010为8MHZ <br/>011为4MHZ <br/>100为2MHZ <br/>101为1MHZ<br/>110为500KHZ<br/>111为250KHZ</td>
+</tr>
+</tbody></table>
+<h2 id="4-串口"><a href="#4-串口" class="headerlink" title="4.串口"></a>4.串口</h2><p>相关寄存器 UxCSR、UxGCR、UxBUF、UxBAUD</p>
+<p><strong>UxCSR</strong>：控制和状态 </p>
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7 MODE</td>
+<td>USART 模式选择 <br/>0：SPI 模式<br/>1:   USART模式</td>
+</tr>
+<tr>
+<td>6 RE</td>
+<td>UART 接收器使能<br/>0： 禁用接收器<br/>1： 接收器使能</td>
+</tr>
+<tr>
+<td>5 SLAVE</td>
+<td>SPI 主或者从模式选择<br/>0： SPI 主模式<br/>1： SPI 从模式</td>
+</tr>
+<tr>
+<td>4 FE</td>
+<td>UART 帧错误状态<br/>0： 无帧错误检测<br/>1： 字节收到不正确停止位级别</td>
+</tr>
+<tr>
+<td>3 ERR</td>
+<td>UART 奇偶错误状态<br/>0： 无奇偶错误检测<br/>1： 字节收到奇偶错误</td>
+</tr>
+<tr>
+<td>2 RX_BYTE</td>
+<td>接收字节状态<br/>0： 没有收到字节<br/>1： 准备好接收字节</td>
+</tr>
+<tr>
+<td>1 TX_BYTE</td>
+<td>传送字节状态<br/>0:   字节没有被传送<br/>1:   写到数据缓存寄存器的最后字节被传送</td>
+</tr>
+<tr>
+<td>0 ACTIVE</td>
+<td>USART 传送/接收主动状态、在 SPI 从模式该位等于从模式选择<br/>0： USART 空闲<br/>1： 在传送或者接收模式 USART 忙碌</td>
+</tr>
+</tbody></table>
+<p><strong>UxGCR</strong>：通用控制</p>
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7 CPOL</td>
+<td>SPI 的时钟极性<br/>0： 负时钟极性<br/>1： 正时钟极性</td>
+</tr>
+<tr>
+<td>6 CPHA</td>
+<td>SPI 时钟相位<br/>0： 当 SCK 从 CPOL 倒置到 CPOL 时数据输出到 MOSI, 并且当 SCK 从 CPOL 倒置到CPOL 时，数据输入抽样到 MISO<br/>1： 当 SCK 从 CPOL 倒置到 CPOL 时数据输出到 MOSI， 并且当 SCK 从 CPOL 倒置到CPOL 时数据输入抽样到 MISO</td>
+</tr>
+<tr>
+<td>5 ORDER</td>
+<td>传送位顺序<br/>0： LSB 先传送<br/>1： MSB 先传送</td>
+</tr>
+<tr>
+<td>4：0 BAUD_E</td>
+<td>CPOL 时出 波特率指数值。<br/>BAUD_E 和 BAUD_M 决定UART 波特率和 SPI 的主 SCK 时钟频率</td>
+</tr>
+</tbody></table>
+<p><strong>UxBAUD</strong>：波特率控制<br>Bit[7:0] BAUD_M：波特率小数部分的值。BAUD_E 和 BAUD_M决定了 UART 的波特率和 SPI 的主 SCK 时钟频率 </p>
+<p><strong>UxBUF</strong>：接收/发送数据缓存</p>
+<p><strong>UTX0IF</strong>：发送中断标志<br>Bit[1] IRCON2：USART 0 TX 中断标志，0： 无中断未决，1： 中断未决</p>
+<p><strong>32 MHz 系统时钟常用的波特率设置</strong></p>
+<table>
+<thead>
+<tr>
+<th>波特率</th>
+<th>指数值BAUD_E</th>
+<th>小数部分BAUD_M</th>
+<th>误差(%)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2400</td>
+<td>6</td>
+<td>59</td>
+<td>0.14</td>
+</tr>
+<tr>
+<td>4800</td>
+<td>7</td>
+<td>59</td>
+<td>0.14</td>
+</tr>
+<tr>
+<td>9600</td>
+<td>8</td>
+<td>59</td>
+<td>0.14</td>
+</tr>
+<tr>
+<td>14400</td>
+<td>8</td>
+<td>216</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>19200</td>
+<td>9</td>
+<td>59</td>
+<td>0.14</td>
+</tr>
+<tr>
+<td>28800</td>
+<td>9</td>
+<td>216</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>38400</td>
+<td>10</td>
+<td>59</td>
+<td>0.14</td>
+</tr>
+<tr>
+<td>57600</td>
+<td>10</td>
+<td>216</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>76800</td>
+<td>11</td>
+<td>59</td>
+<td>0.14</td>
+</tr>
+<tr>
+<td>115200</td>
+<td>11</td>
+<td>216</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>230400</td>
+<td>12</td>
+<td>216</td>
+<td>0.03</td>
+</tr>
+</tbody></table>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Zigbee" >
+    <span class="tag-code">Zigbee</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2020/02/21/MySQL%E5%B8%B8%E7%94%A8%E6%95%B4%E7%90%86/">
+        <span class="nav-arrow">← </span>
+        
+          MySQL常用整理
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2020/03/08/MySQL8%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
+        
+          MySQL8踩坑记录
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    <!--  -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    <!-- 
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+     -->
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-IO外设"><span class="toc-nav-text">1. IO外设</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-中断与定时器"><span class="toc-nav-text">2.中断与定时器</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-时钟"><span class="toc-nav-text">3.时钟</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-串口"><span class="toc-nav-text">4.串口</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://www.goldenrock.top/2020/02/23/CC2530常用寄存器配置整理/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+ 
+    <p class="copyright>
+    &copy;2020 <a href="https://github.com/GoldenRockSpace" target="_blank" rel="noopener">Build by GoldenRock</a>
+    </p>
+  <span class="copyright style="width:350px;margin:0 auto; padding:0px 0; overflow: hidden;">
+    <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener" style="display:inline-block;text-decoration: none; height:20px;line-height:20px; ">冀ICP备20012545号</a >
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=13072302000025" target="_blank" rel="noopener" style="display:inline-block; text-decoration: none; height:20px; line-height:20px; ">
+    <img src="http://cdn.zmoyi.com/static/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" style="float:left;" alt="">
+    冀公网安备 13072302000025号</a>
+  </span>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>
