@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="GoldenRock&#39;s blog">
+  <meta name="keyword" content="一个通信专业的学生的秃头历程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      利用云服务器搭建hexo个人博客 | GoldenRock的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>GoldenRock的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>利用云服务器搭建hexo个人博客</h2>
+  <p class="post-date">2020-02-15</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0.前言"></a>0.前言</h2><p>2020年初，受疫情影响，马云爸爸给在家里苦逼上网课的学生一次白嫖六个月ECS的机会，闲着不用不是浪费马爸爸的钱么，然后就开始学着搭博客了，网上查了一圈，发现hexo主题有点丰富，还有不少纸片人小姐姐的主题，emmm~ 符合我闷骚的性格，就它了！</p>
+<h2 id="1-配置云服务器和购买域名"><a href="#1-配置云服务器和购买域名" class="headerlink" title="1.配置云服务器和购买域名"></a>1.配置云服务器和购买域名</h2><h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><p>由于手上只有阿里云，就拿它来说了，国内的云服务器商诸如阿里腾讯华为其实也都大同小异。<br>服务器的配置根据自己的需求，镜像选择CentOS7.购买完成进入控制台选择左侧的“本实例安全组”设置安全组规则。</p>
+<p><img src="http://img.goldenrock.top/img/prt1.png" alt=""></p>
+<p>确保开放服务器的80端口和22端口,80端口需要用作nginx反向代理的监听端口，22端口为本地连接服务器的SSH端口。</p>
+<p><img src="http://img.goldenrock.top/img/prt2.png" alt=""></p>
+<h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><p>既然选择了国内的服务器，那就最好选国内的域名商了，因为国内域名都要备案，而国外的域名连接国内的服务器过程似乎有些繁琐，还极有可能被封。<br>所以最佳搭配为：<br>国内服务器+国内注册域名<br>国外服务器+国外注册域名<br>购买域名后就按照域名提供商的指引完成实名认证和备案，大概总共需要最长20天的时间。（有点烦的说）。<br>域名需要进行解析以绑定到自己的服务器IP</p>
+<p><img src="http://img.goldenrock.top/img/prt3.png" alt=""></p>
+<h2 id="2-云服务器的配置"><a href="#2-云服务器的配置" class="headerlink" title="2.云服务器的配置"></a>2.云服务器的配置</h2><p>本地设备需要通过SSH连接服务器，推荐使用xshell软件。</p>
+<h3 id="例行更新"><a href="#例行更新" class="headerlink" title="例行更新"></a>例行更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y update</span><br></pre></td></tr></table></figure>
+<h3 id="安装nginx服务器"><a href="#安装nginx服务器" class="headerlink" title="安装nginx服务器"></a>安装nginx服务器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y nginx</span><br></pre></td></tr></table></figure>
+<p>启动nginx服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start nginx</span><br></pre></td></tr></table></figure>
+<p>设置开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable nginx</span><br></pre></td></tr></table></figure>
+<h3 id="Nginx-配置-创建文件目录-用于博客站点文件存放-。"><a href="#Nginx-配置-创建文件目录-用于博客站点文件存放-。" class="headerlink" title="Nginx 配置(创建文件目录, 用于博客站点文件存放)。"></a>Nginx 配置(创建文件目录, 用于博客站点文件存放)。</h3><p>首先创建博客存放的文件地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;home</span><br><span class="line">mkdir www</span><br><span class="line">cd &#x2F;www</span><br><span class="line">mkdir website</span><br></pre></td></tr></table></figure>
+<p>设置文件地址的权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 775 -R &#x2F;home&#x2F;www&#x2F;website&#x2F;</span><br></pre></td></tr></table></figure>
+<p>配置nginx服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;nginx&#x2F;nginx.conf</span><br></pre></td></tr></table></figure>
+<p>修改server_name和root；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">server &#123;</span><br><span class="line">      listen       80 default_server;</span><br><span class="line">      listen       [::]:80 default_server;</span><br><span class="line">      server_name  www.xxx.xxx; # 填写个人域名,没有域名就填服务器的IP</span><br><span class="line">      root         &#x2F;home&#x2F;www&#x2F;website;</span><br><span class="line">  &#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h2 id="3-安装Git以及Node-js"><a href="#3-安装Git以及Node-js" class="headerlink" title="3.安装Git以及Node.js"></a>3.安装Git以及Node.js</h2><h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https:&#x2F;&#x2F;rpm.nodesource.com&#x2F;setup_10.x | bash -</span><br><span class="line"></span><br><span class="line">yum install -y nodejs</span><br></pre></td></tr></table></figure>
+<h3 id="安装Git及配置仓库"><a href="#安装Git及配置仓库" class="headerlink" title="安装Git及配置仓库"></a>安装Git及配置仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install git</span><br></pre></td></tr></table></figure>
+<p>配置git用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser git</span><br></pre></td></tr></table></figure>
+<p>修改文件权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 740 &#x2F;etc&#x2F;sudoers</span><br><span class="line">vim &#x2F;etc&#x2F;sudoers</span><br></pre></td></tr></table></figure>
+<p>找到这个位置添加下面这句话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ALL&#x3D;(ALL) ALL</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.goldenrock.top/img/prt4.png" alt=""></p>
+<p>保存退出后将sudoers文件权限改回原样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 400 &#x2F;etc&#x2F;sudoers</span><br></pre></td></tr></table></figure>
+
+<p>设置git用户的密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd git</span><br></pre></td></tr></table></figure>
+
+<p>切换到git用户，然后在~目录下创建.ssh文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">su git</span><br><span class="line">cd ~</span><br><span class="line">mkdir .ssh</span><br><span class="line">cd .ssh</span><br></pre></td></tr></table></figure>
+<p>生成公钥密钥文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p>会提示选择文件，输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id_rsa</span><br></pre></td></tr></table></figure>
+<p>此时在目录下就会有两个文件，分别是id_rsa 和 id_rsa.pub，其中 id_rsa.pub 就是公钥文件 我们复制一份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp id_rsa.pub authorized_keys</span><br></pre></td></tr></table></figure>
+<p>我们修改它的权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 ~&#x2F;.ssh&#x2F;authorized_keys</span><br><span class="line">chmod 700 ~&#x2F;.ssh</span><br></pre></td></tr></table></figure>
+<p>验证：在本地机上打开cmd,输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -v git@服务器ip</span><br></pre></td></tr></table></figure>
+<p>以阿里云服务器为例，提示<br>Welcome to Alibaba Cloud Elastic Compute Service !<br>说明连接成功<br>回到服务器，退出git用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>创建一个git的仓库，并且新建一个post-receive文件，操作如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;home</span><br><span class="line">mkdir git</span><br><span class="line">cd git</span><br><span class="line">git init --bare blog.git</span><br></pre></td></tr></table></figure>
+<p>创建 Git 钩子(hook)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;home&#x2F;git&#x2F;blog.git&#x2F;hooks&#x2F;post-receive</span><br></pre></td></tr></table></figure>
+<p>输入以下信息，用于指定 Git 的源代码 和 Git 配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --work-tree&#x3D;&#x2F;usr&#x2F;local&#x2F;hexo --git-dir&#x3D;&#x2F;home&#x2F;git&#x2F;blog.git checkout -f</span><br></pre></td></tr></table></figure>
+<p>保存并退出后, 给该文件添加可执行权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x &#x2F;home&#x2F;git&#x2F;blog.git&#x2F;hooks&#x2F;post-receive</span><br></pre></td></tr></table></figure>
+<h2 id="4-本地主机的操作（win10）"><a href="#4-本地主机的操作（win10）" class="headerlink" title="4.本地主机的操作（win10）"></a>4.本地主机的操作（win10）</h2><h3 id="安装Node-js-1"><a href="#安装Node-js-1" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>下载地址: <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">node.js</a> <br>安装过程基本直接 下一步 就可以了。<br>安装完成后使用cmd查看是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+<p>出现版本号说明安装成功</p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>npm下载默认国外源，所以我们要做的第一步工作是将npm换成淘宝的服务器。<br>cmd输入下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>安装cnpm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>安装 hexo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>安装插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-server</span><br></pre></td></tr></table></figure>
+
+<p>新建一个文件夹用来存放博客<br>例如：<br>E:\Blog</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">G:</span><br><span class="line">cd Blog</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<h3 id="配置-config-yml完成服务器的部署"><a href="#配置-config-yml完成服务器的部署" class="headerlink" title="配置_config.yml完成服务器的部署"></a>配置_config.yml完成服务器的部署</h3><p>在刚才生成hexo的目录下，打开_config.yml<br>找到deploy 做如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">repo: git@这里改为服务器公网IP:&#x2F;home&#x2F;git&#x2F;blog.git       </span><br><span class="line">branch: master                           </span><br><span class="line">message:</span><br></pre></td></tr></table></figure>
+<p>清除缓存<br>打开cmd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E:</span><br><span class="line">cd Blog</span><br><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<p>生成静态页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+<p>将本地静态页面目录部署到云服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>回到服务器端重新运行nginx服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+<h2 id="5-主题美化"><a href="#5-主题美化" class="headerlink" title="5.主题美化"></a>5.主题美化</h2><p>完成部署后可以去 <a href="https://hexo.io/zh-cn/docs/themes.html" target="_blank" rel="noopener">Hexo主题</a><br>下载自己喜欢的主题，美化博客。</p>
+<h2 id="6-更新博客内容"><a href="#6-更新博客内容" class="headerlink" title="6.更新博客内容"></a>6.更新博客内容</h2><p>尝试写一篇文章并且发布到服务器上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;My First Blog&quot;</span><br><span class="line">hexo clean &amp;&amp; hexo generate --deploy</span><br></pre></td></tr></table></figure>
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Linux 教程" >
+    <span class="tag-code">Linux 教程</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+    
+      <a class="nav-right" href="/2020/02/21/MySQL%E5%B8%B8%E7%94%A8%E6%95%B4%E7%90%86/">
+        
+          MySQL常用整理
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    <!--  -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    <!-- 
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+     -->
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0-前言"><span class="toc-nav-text">0.前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-配置云服务器和购买域名"><span class="toc-nav-text">1.配置云服务器和购买域名</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#服务器"><span class="toc-nav-text">服务器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#域名"><span class="toc-nav-text">域名</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-云服务器的配置"><span class="toc-nav-text">2.云服务器的配置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#例行更新"><span class="toc-nav-text">例行更新</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#安装nginx服务器"><span class="toc-nav-text">安装nginx服务器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Nginx-配置-创建文件目录-用于博客站点文件存放-。"><span class="toc-nav-text">Nginx 配置(创建文件目录, 用于博客站点文件存放)。</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-安装Git以及Node-js"><span class="toc-nav-text">3.安装Git以及Node.js</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#安装Node-js"><span class="toc-nav-text">安装Node.js</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#安装Git及配置仓库"><span class="toc-nav-text">安装Git及配置仓库</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-本地主机的操作（win10）"><span class="toc-nav-text">4.本地主机的操作（win10）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#安装Node-js-1"><span class="toc-nav-text">安装Node.js</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#安装Hexo"><span class="toc-nav-text">安装Hexo</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#配置-config-yml完成服务器的部署"><span class="toc-nav-text">配置_config.yml完成服务器的部署</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5-主题美化"><span class="toc-nav-text">5.主题美化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#6-更新博客内容"><span class="toc-nav-text">6.更新博客内容</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://www.goldenrock.top/2020/02/15/利用云服务器搭建hexo个人博客/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+ 
+    <p class="copyright>
+    &copy;2020 <a href="https://github.com/GoldenRockSpace" target="_blank" rel="noopener">Build by GoldenRock</a>
+    </p>
+  <span class="copyright style="width:350px;margin:0 auto; padding:0px 0; overflow: hidden;">
+    <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener" style="display:inline-block;text-decoration: none; height:20px;line-height:20px; ">冀ICP备20012545号</a >
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=13072302000025" target="_blank" rel="noopener" style="display:inline-block; text-decoration: none; height:20px; line-height:20px; ">
+    <img src="http://cdn.zmoyi.com/static/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" style="float:left;" alt="">
+    冀公网安备 13072302000025号</a>
+  </span>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>
