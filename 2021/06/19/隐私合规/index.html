@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="GoldenRock&#39;s blog">
+  <meta name="keyword" content="一个通信专业的学生的秃头历程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      欧盟GDPR隐私合规简单总结 | GoldenRock的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>GoldenRock的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>欧盟GDPR隐私合规简单总结</h2>
+  <p class="post-date">2021-06-19</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><ol>
+<li><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>方法论的展开紧紧围绕GPDR的七大原则</p>
+<ul>
+<li><p>合法、公正及透明:  </p>
+<p>​    ①必须根据GDPR规定有效的依据（称为“合法依据”）来收集和使用个人数据。 </p>
+<p>​    ②必须确保对数据不做任何违反其他法律的行为。 </p>
+<p>​    ③必须以公平的方式使用个人数据。这意味着不得以对相关个人过度有害，意外或误导的方式处理数据。</p>
+</li>
+<li><p>目的限制:  必须从一开始就明确要处理的目的。</p>
+</li>
+<li><p>数据最小化: </p>
+<p>必须确保正在处理的个人数据为：</p>
+<p>​    ①足够 - 足以正确实现指定的目的；</p>
+<p>​    ②相关 - 与该目的有合理联系；</p>
+<p>​    ③限于必要的条件 - 所拥有的不超过为此目的所需要的。</p>
+</li>
+<li><p>准确性: 数据控制者应采取所有合理步骤，以确保所持有的个人数据在任何事实上均正确且不具有误导性。</p>
+</li>
+<li><p>存储限制: 保存的个人数据的时间不得超过所需时间</p>
+</li>
+<li><p>完整性和机密性(安全):  GDPR的一项关键原则是控制者应通过“适当的技术和组织措施”安全地处理个人数据。</p>
+</li>
+<li><p>问责原则:  </p>
+<p>​    ①采纳和实施数据保护政策。</p>
+<p>​    ②与委托处理个人数据的组织签订书面合同。</p>
+<p>​    ③记录并在必要时报告个人数据泄露。</p>
+<p>​    ④任命一名数据保护官（DPO）等。</p>
+</li>
+</ul>
+<h1 id="2-数据的全生命周期隐私安全控制"><a href="#2-数据的全生命周期隐私安全控制" class="headerlink" title="2. 数据的全生命周期隐私安全控制"></a>2. 数据的全生命周期隐私安全控制</h1><ol>
+<li>收集</li>
+</ol>
+<p>围绕目的最小化和数据最小化原则，明确每一个数据项使用的目的，是否存在禁止处理的数据项、数据的使用是否超出了既定的使用目的，数据采集是否经过用户同意，敏感数据的采集需要单独获取用户授权</p>
+<ol start="2">
+<li>传输</li>
+</ol>
+<p>数据在传输中需要保证安全和完整，采取必要的加密手段和校验措施，使系统具备防篡改、防泄露的安全防护能力</p>
+<ol start="3">
+<li>存储</li>
+</ol>
+<p>告知用户并获取授权；</p>
+<p>依据数据最小化原则，明确数据的存储时限，完成使用目的的数据需要及时删除，（可以保留使用记录，记录中不可以包含详细的个人数据）</p>
+<ol start="4">
+<li>使用</li>
+</ol>
+<p><strong>合法和透明的方式、目的限制、数据最小化、保密和完整</strong></p>
+<p>数据的使用是否经过用户同意，数据使用过程中数据操作人员的权限控制，和数据操作审计，留存数据操作日志。</p>
+<p>不得将收集的个人数据用于与初始目的<strong>不相符</strong>的其他目的</p>
+<p>依据最小权限原则，每个程序和系统用户都应该具有完成任务所必需的最小权限集合，需要明确工作职责和数据权限</p>
+<ol start="5">
+<li>共享和披露</li>
+</ol>
+<p>数据的共享是否获取用户授权，明确第三方处理者的基本信息和安全防护能力，明确委托征得用户同意的场景范围，与第三方签订委托合同，对第三方进行数据审计，记录第三方处理者的处理个人数据的情况</p>
+<ol start="6">
+<li>数据跨境  </li>
+</ol>
+<p>建立当地数据当地处理</p>
+<p>涉及数据跨境的，数据跨境的声明需要在隐私政策之外单独获取用户同意，并且想当地监管机构报备，若数据跨境的目的和数据集出现变化，需要重新获取用户同意并上报监管机构</p>
+<ol start="7">
+<li>删除</li>
+</ol>
+<p>删除的数据不可以复原或者匿名化的数据不可以重新识别</p>
+<h1 id="3-数据主体权力响应"><a href="#3-数据主体权力响应" class="headerlink" title="3. 数据主体权力响应"></a>3. 数据主体权力响应</h1><p>响应用户主体权力需要在交互端设计流程，保证用户可以阅读到隐私政策内容。</p>
+<p>隐私政策中需要包含 响应主体权利的渠道和入口</p>
+<ol>
+<li><p>权利告知：数据控制者应告知数据主体其拥有拒绝权、限制处理权、自动决策拒绝权等权利。 该告知场景包括但不限于：隐私政策、客户端中。</p>
+</li>
+<li><p>用户发起申请：当用户发起限制处理权时，其可通过客户端中的个人权利模 块或其他自动化的反馈模块向数据控制者提出限制处理，或者通过邮件形式 联系客服人员请求行使其限制处理权。</p>
+</li>
+<li><p>身份核实：在客服人员接到用户发起的限制处理权后，需对用户的身份进行 验证。如果验证通过，客服人员需记录该用户发起的权利、申请时间和申请 原因。客服人员记录后将请求传达给系统及安全部。</p>
+</li>
+<li><p>响应判断与处理：在接到客服人员的请求后，系统及安全部需要对该用户提 出限制处理请求的原因和目前公司进行该数据处理的依据进行综合考量，判断是否响应该用户的请求。 </p>
+<p>1）若判断为响应请求： 数据控制者需要预估处理该请求所需要的时间 </p>
+<p>​    a) 若预计 30 天内可完成该请求的处理： 数据控制者在完成该用户请求后需要记录处理完成的时间，并以邮件或客户端告知形式通知数据主体其请求已完成。 对该通知进行记录与存档。</p>
+<p>​     b) 若预计处理该请求的时间超过 30 天： 数据控制者需要在收到请求后的 30 天内通知数据主体其申请的限制处理权利将得到延迟，并告知延迟的原因。在数据控制者在完成该用户请求后需要记录处理完成的时间，并及时以邮件或客户端告知形式通知数据主体其请求已完成。对该通知进行记录与存档。 </p>
+</li>
+</ol>
+<p>响应的数据主体权利：</p>
+<p>​        a) 知情权：隐私政策中告知用户收集的数据、处理的目的、保护和留存数据、第三方披露、数据跨境、数据主体的权利和渠道</p>
+<p>​        b) 访问权：用户咨询时，有义务向用户解释数据是否被处理、处理的目的、存储的期限、处理的手段，用户可以获取其个人数据副本</p>
+<p>​        c) 更正权：用户提出更正数据的要求</p>
+<p>​        d) 删除权：删除用户的个人数据</p>
+<p>​        e) 限制处理：控制者保留数据但不得使用</p>
+<p>​        f)  反对权：用户撤回同意后，停止进一步处理个人数据，及时删除留存的数据</p>
+<p>用户有权拒绝，</p>
+<p>​    2）若判断为拒绝请求： 若数据控制者判断其处理该用户的法律依据优先于数据主体的法律依 据而拒绝了该用户提出的限制处理申请，则应将数据控制者进行处理 所依据的法律和目的以邮件形式通知并合理地传达给用户。数据控制 者还应将其拒绝响应该用户的限制处理权进行记录和归档。归档内容可包括：用户的请求原因、拒绝请求时间、拒绝原因、拒绝的法律依据等。</p>
+<ol start="5">
+<li>证据记录与保存：数据控制者对所有响应用户权利的处理与相关依据进行保存与归档。</li>
+</ol>
+<h1 id="4-响应监管"><a href="#4-响应监管" class="headerlink" title="4.响应监管"></a>4.响应监管</h1><p>在欧盟境内设置实体或者代理机构，同时在当地要有DPO，与当地监管机构建立联系，DPO可以外聘可以内部任命</p>
+</li>
+</ol>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#隐私合规" >
+    <span class="tag-code">隐私合规</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2020/05/16/Springboot%E6%95%B4%E5%90%88%E9%AA%8C%E8%AF%81%E7%A0%81%E5%B7%A5%E5%85%B7kaptcha/">
+        <span class="nav-arrow">← </span>
+        
+          Springboot整合验证码工具kaptcha
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    <!--  -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    <!-- 
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+     -->
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#概述"><span class="toc-nav-text">概述</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#2-数据的全生命周期隐私安全控制"><span class="toc-nav-text">2. 数据的全生命周期隐私安全控制</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#3-数据主体权力响应"><span class="toc-nav-text">3. 数据主体权力响应</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#4-响应监管"><span class="toc-nav-text">4.响应监管</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://www.goldenrock.top/2021/06/19/隐私合规/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+ 
+    <p class="copyright>
+    &copy;2020 <a href="https://github.com/GoldenRockSpace" target="_blank" rel="noopener">Build by GoldenRock</a>
+    </p>
+  <span class="copyright style="width:350px;margin:0 auto; padding:0px 0; overflow: hidden;">
+    <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener" style="display:inline-block;text-decoration: none; height:20px;line-height:20px; ">冀ICP备20012545号</a >
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=13072302000025" target="_blank" rel="noopener" style="display:inline-block; text-decoration: none; height:20px; line-height:20px; ">
+    <img src="http://cdn.zmoyi.com/static/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" style="float:left;" alt="">
+    冀公网安备 13072302000025号</a>
+  </span>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>
